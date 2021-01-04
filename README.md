@@ -6,9 +6,9 @@ The proposed assignment aims to advance your scientific knowledge as well as to 
 
 ### 1st part (date of delivery/presentation: 13/01/2021, 10 min presentation)
 ###### Comparative analysis of the results from different sources/datasets.
-Based on the results of the proteomic analysis of normal mouse brain (seven excel files representing different parts of the brain, already provided) you have to address the following issues:
-a) Discern the common and the unique proteins regarding each mouse brain part.
-b) Identify the proteins that have been previously reported in related studies (pdf files already provided) per brain part.
+Based on the results of the proteomic analysis of normal mouse brain (seven excel files representing different parts of the brain, already provided) you have to address the following issues: <br />
+a) Discern the common and the unique proteins regarding each mouse brain part. <br />
+b) Identify the proteins that have been previously reported in related studies (pdf files already provided) per brain part. <br />
 
 ### 2nd part (date of delivery 20/01/2021, 10 min presentation)
 ###### Data evaluation
