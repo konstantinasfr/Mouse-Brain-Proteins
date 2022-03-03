@@ -1,0 +1,199 @@
+# count the number of proteins in a specidfic brain part - sharma
+select count(sharma.AC_uniprot)
+from sharma
+where sharma.Brainstem=0 and sharma.Cerebellum=0 and sharma.Cortex=0 and sharma.Hippocampus=0 and sharma.Hypothamalus=0 and sharma.Medulla=0 and sharma.Midbrain=0 and sharma.Olfactory=0 and sharma.Thalamus=1;
+
+select count(sharma.AC_uniprot)
+from sharma
+where sharma.Thalamus=1;
+
+# count the number of unique proteins in a specific brain part in 2dge study
+select count(2dge.AC_uniprot)
+from 2dge
+where 2dge.Brainstem=0 and 2dge.Cerebellum=0 and 2dge.Cortex=1 and 2dge.Hippocampus=0 and 2dge.Hypothamalus=0 and 2dge.Medulla=0 and 2dge.Midbrain=0 and 2dge.Olfactory=0 and 2dge.Thalamus=0;
+
+# count the number of total proteins in a specific brain part in 2dge study
+select count(2dge.AC_uniprot)
+from 2dge
+where 2dge.Cortex=1;
+
+# count the number of unique proteins in a specific brain part in HRMS study 
+select count(HRMS.AC_uniprot)
+from HRMS
+where HRMS.Brainstem=0 and HRMS.Cerebellum=0 and HRMS.Cortex=0 and HRMS.Hippocampus=0 and HRMS.Hypothamalus=0 and HRMS.Medulla=0 and HRMS.Midbrain=0 and HRMS.Olfactory=1 and HRMS.Thalamus=0;
+
+# count the number of total proteins in a specific brain part in HRMS study
+select count(HRMS.AC_uniprot)
+from HRMS
+where HRMS.Thalamus=1;
+
+-----------------------------------------------------------------------------------------------------
+select count(proteinsInfo.AC_uniprot)
+from proteinsInfo
+where proteinsInfo.AC_uniprot in ( select 2dge.AC_uniprot from 2dge where Olfactory = 1) 
+	and proteinsInfo.AC_uniprot in ( select HRMS.AC_uniprot from HRMS where Olfactory = 1)
+    and proteinsInfo.AC_uniprot in ( select sharma.AC_uniprot from sharma where Olfactory = 1);
+    
+select count(proteinsInfo.AC_uniprot)
+from proteinsInfo
+where proteinsInfo.AC_uniprot in ( select 2dge.AC_uniprot from 2dge where 2dge.Brainstem=0 and 2dge.Cerebellum=0 and 2dge.Cortex=0 and 2dge.Hippocampus=0 and 2dge.Hypothamalus=0 and 2dge.Medulla=0 and 2dge.Midbrain=0 and 2dge.Olfactory=1 and 2dge.Thalamus=0)
+	or proteinsInfo.AC_uniprot in ( select HRMS.AC_uniprot from HRMS where HRMS.Brainstem=0 and HRMS.Cerebellum=0 and HRMS.Cortex=0 and HRMS.Hippocampus=0 and HRMS.Hypothamalus=0 and HRMS.Medulla=0 and HRMS.Midbrain=0 and HRMS.Olfactory=1 and HRMS.Thalamus=0)
+    or proteinsInfo.AC_uniprot in ( select sharma.AC_uniprot from sharma where sharma.Brainstem=0 and sharma.Cerebellum=0 and sharma.Cortex=0 and sharma.Hippocampus=0 and sharma.Hypothamalus=0 and sharma.Medulla=0 and sharma.Midbrain=0 and sharma.Olfactory=1 and sharma.Thalamus=0);
+    
+select count(proteinsInfo.AC_uniprot)
+from proteinsInfo
+where proteinsInfo.AC_uniprot in ( select 2dge.AC_uniprot from 2dge where 2dge.Brainstem=0 and 2dge.Cerebellum=0 and 2dge.Cortex=1 and 2dge.Hippocampus=0 and 2dge.Hypothamalus=0 and 2dge.Medulla=0 and 2dge.Midbrain=0 and 2dge.Olfactory=0 and 2dge.Thalamus=0)
+	and proteinsInfo.AC_uniprot in ( select HRMS.AC_uniprot from HRMS where HRMS.Brainstem=0 and HRMS.Cerebellum=0 and HRMS.Cortex=1 and HRMS.Hippocampus=0 and HRMS.Hypothamalus=0 and HRMS.Medulla=0 and HRMS.Midbrain=0 and HRMS.Olfactory=0 and HRMS.Thalamus=0)
+    and proteinsInfo.AC_uniprot in ( select sharma.AC_uniprot from sharma where sharma.Brainstem=0 and sharma.Cerebellum=0 and sharma.Cortex=1 and sharma.Hippocampus=0 and sharma.Hypothamalus=0 and sharma.Medulla=0 and sharma.Midbrain=0 and sharma.Olfactory=0 and sharma.Thalamus=0);
+
+
+select count(proteinsInfo.AC_uniprot)
+from proteinsInfo
+where proteinsInfo.AC_uniprot in ( select HRMS.AC_uniprot from HRMS where HRMS.Brainstem=0 and HRMS.Cerebellum=0 and HRMS.Cortex=1 and HRMS.Hippocampus=0 and HRMS.Hypothamalus=0 and HRMS.Medulla=0 and HRMS.Midbrain=0 and HRMS.Olfactory=0 and HRMS.Thalamus=0)
+    and proteinsInfo.AC_uniprot in ( select sharma.AC_uniprot from sharma where sharma.Brainstem=0 and sharma.Cerebellum=0 and sharma.Cortex=1 and sharma.Hippocampus=0 and sharma.Hypothamalus=0 and sharma.Medulla=0 and sharma.Midbrain=0 and sharma.Olfactory=0 and sharma.Thalamus=0);
+    
+
+select proteinsInfo.AC_uniprot, proteinsInfo.Description
+from proteinsInfo
+where proteinsInfo.AC_uniprot in ( select 2dge.AC_uniprot from 2dge where Olfactory = 1) 
+	and proteinsInfo.AC_uniprot in ( select HRMS.AC_uniprot from HRMS where Olfactory = 1)
+    and proteinsInfo.AC_uniprot in ( select sharma.AC_uniprot from sharma where Olfactory = 1);
+    
+# 8 return AC_uniprot, Description of proteins that belong uniquely to Olfactory in all 3 studies
+select proteinsInfo.AC_uniprot, proteinsInfo.Description
+from proteinsInfo
+where proteinsInfo.AC_uniprot in ( select 2dge.AC_uniprot from 2dge where 2dge.Brainstem=0 and 2dge.Cerebellum=0 and 2dge.Cortex=0 and 2dge.Hippocampus=0 and 2dge.Hypothamalus=0 and 2dge.Medulla=0 and 2dge.Midbrain=0 and 2dge.Olfactory=1 and 2dge.Thalamus=0)
+	and proteinsInfo.AC_uniprot in ( select HRMS.AC_uniprot from HRMS where HRMS.Brainstem=0 and HRMS.Cerebellum=0 and HRMS.Cortex=0 and HRMS.Hippocampus=0 and HRMS.Hypothamalus=0 and HRMS.Medulla=0 and HRMS.Midbrain=0 and HRMS.Olfactory=1 and HRMS.Thalamus=0)
+    and proteinsInfo.AC_uniprot in ( select sharma.AC_uniprot from sharma where sharma.Brainstem=0 and sharma.Cerebellum=0 and sharma.Cortex=0 and sharma.Hippocampus=0 and sharma.Hypothamalus=0 and sharma.Medulla=0 and sharma.Midbrain=0 and sharma.Olfactory=1 and sharma.Thalamus=0); 
+--------------------------------------------------------------------------------------------------------------------------------
+#common proteins HRMS and 2dge
+select count(HRMS.AC_uniprot)
+from HRMS
+join 2dge
+ON HRMS.AC_uniprot = 2dge.AC_uniprot;
+
+# 5 return AC_uniprot, Description of proteins with lenght > 50
+select AC_uniprot, Description
+from proteinsInfo
+where Length>100;
+
+#common proteins HRMS and 2dge in Cerebelum
+select count(HRMS.AC_uniprot)
+from HRMS
+join 2dge
+ON HRMS.AC_uniprot = 2dge.AC_uniprot
+where HRMS.Cerebellum = 1 AND 2dge.Cerebellum = 1;
+
+
+#common proteins HRMS and sharma that are reviewed
+select proteinsInfo.AC_uniprot, proteinsInfo.Description
+from proteinsInfo
+where proteinsInfo.AC_uniprot in ( select HRMS.AC_uniprot
+						from HRMS
+						join sharma
+						ON HRMS.AC_uniprot = sharma.AC_uniprot)
+		and proteinsInfo.Status = "reviewed";
+		
+		
+# 6 return AC_uniprot, Description of proteins with lenght > 100
+select proteinsInfo.AC_uniprot, proteinsInfo.Description
+from proteinsInfo
+where proteinsInfo.Length>100 and proteinsInfo.AC_uniprot in (
+							select HRMS.AC_uniprot
+                            from HRMS
+                            where Cerebellum = 1
+                            );
+--------------------------------------------------------------------------------------------------
+#Finds all the distinct cellucar components of all proteins 
+select distinct cellularComponent.AC_uniprot, cellularComponent.information
+from cellularComponent
+
+
+# Molecular Function of proteins that are unique in cerebellum in 2dge study
+select molecularFunction.AC_uniprot, molecularFunction.information
+from molecularFunction
+where molecularFunction.AC_uniprot in (select 2dge.AC_uniprot
+										from 2dge
+										where 2dge.Brainstem=0 and 2dge.Cerebellum=0 
+                                        and 2dge.Cortex=0 and 2dge.Hippocampus=0 and 
+                                        2dge.Hypothamalus=1 and 2dge.Medulla=0 and 
+                                        2dge.Midbrain=0 and 2dge.Olfactory=0 and 
+                                        2dge.Thalamus=0);
+
+                                      
+#Finds the 10 most used biological processes from the proteins in the database
+select count(biologicalProcess.information),biologicalProcess.information
+from biologicalProcess
+group by biologicalProcess.information 
+order by count(biologicalProcess.information) desc
+limit 10;
+
+
+#Finds the 10 most used biological processes from the proteins in sharma study
+select count(biologicalProcess.information),biologicalProcess.information
+from biologicalProcess
+where biologicalProcess.AC_uniprot in (select sharma.AC_uniprot from sharma)
+group by biologicalProcess.information 
+order by count(biologicalProcess.information) desc
+limit 10;
+
+-----------------------------------------------------
+
+#Finds the studies that the protein is in
+select 2dge.Study
+from 2dge
+join proteinsInfo
+on 2dge.AC_uniprot=proteinsInfo.AC_uniprot
+where proteinsInfo.AC_uniprot="P63101"
+union
+select HRMS.Study
+from HRMS
+join proteinsInfo
+on HRMS.AC_uniprot=proteinsInfo.AC_uniprot
+where proteinsInfo.AC_uniprot="P63101"
+union
+select sharma.Study
+from sharma
+join proteinsInfo
+on sharma.AC_uniprot=proteinsInfo.AC_uniprot
+where proteinsInfo.AC_uniprot="P63101";
+
+
+# The brain parts that we can find the P63101 protein in, in 2dge study
+select 2dge.Midbrain,2dge.Cerebellum,2dge.Medulla,2dge.Olfactory,2dge.Hypothamalus,2dge.Hippocampus,2dge.Brainstem,2dge.Cortex,2dge.Thalamus
+from 2dge
+where 2dge.AC_uniprot="P63101";
+-------------------------------------------------------------------------------------------
+# Finds the molecular functions for protein P63101
+select molecularFunction.information
+from molecularFunction
+where molecularFunction.AC_uniprot = "P63101";
+
+
+# Finds proteins with at least one common biological process
+select distinct biologicalProcess.AC_uniprot
+from biologicalProcess
+where biologicalProcess.information in (
+		select biologicalProcess.information
+		from biologicalProcess
+		where biologicalProcess.AC_uniprot = "P63101");
+
+		
+# Finds the ancestors of the molecular functions of protein P63101
+select distinct ancestor_2_info, ancestor_3_info
+from molecularFunction
+join molecularFunctionAnc
+on molecularFunction.gene_id = molecularFunctionAnc.gene_id
+where molecularFunction.AC_uniprot="P63101"
+
+
+# Finds all second ancestors and the number of go terms that has these ancestors
+select count(ancestor_2_info), ancestor_2_info
+from molecularFunctionAnc
+group by ancestor_2_info
+order by count(ancestor_2_info) desc;
+
+
+    
+    
+    
